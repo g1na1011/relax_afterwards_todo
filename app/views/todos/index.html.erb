@@ -17,6 +17,7 @@
     <% end %>
   </div>
 
+  <% if !@todo_items.empty? %>
   <div class="well well-sm">
     <%= form_tag("/todos/complete/", :method => "post") do %>
       <ul style="list-style-type:none;">
@@ -37,5 +38,6 @@
       </ul>
     <%end %>
   </div>
+  <% end %>
 </div>
 
