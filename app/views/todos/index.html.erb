@@ -1,0 +1,41 @@
+<title>To-do</title>
+<div class="container">
+  <h1>TODAY'S TO-DOs</h1>
+  <hr/>
+
+  <% if !flash[:error].nil? %>
+    <div class="alert alert-dismissable alert-danger">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <strong><%= flash[:error] %></strong>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form_for @todo_item do |f| %>
+      <%= f.text_field :todo_item %>
+      <%= f.submit "DO IT", class: "btn btn-primary btn-sm" %>
+    <% end %>
+  </div>
+
+  <div class="well well-sm">
+    <%= form_tag("/todos/complete/", :method => "post") do %>
+      <ul style="list-style-type:none;">
+        <% @todo_items.each do |t| %> 
+          <% if t.completed == true %>
+            <li style="color:grey;">
+              <strike><%= t.todo_item %></strike> 
+              <%= link_to '(delete me)', destroy_path %>
+            </li>
+          <% else %>
+            <li> 
+              <%= check_box_tag "todos_checkbox[]", t.id %> <%= t.todo_item %>  
+            </li>
+          <% end %>
+        <%end%>
+        <br/>
+        <%= submit_tag("CROSS ME OUT", :class=>"btn btn-info btn-xs") %>
+      </ul>
+    <%end %>
+  </div>
+</div>
+
